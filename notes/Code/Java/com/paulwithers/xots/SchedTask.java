@@ -1,4 +1,4 @@
-package com.paulwithers;
+package com.paulwithers.xots;
 
 import org.openntf.domino.Database;
 import org.openntf.domino.Document;
@@ -7,19 +7,21 @@ import org.openntf.domino.ViewEntry;
 import org.openntf.domino.ViewNavigator;
 import org.openntf.domino.utils.Factory;
 import org.openntf.domino.utils.Factory.SessionType;
-import org.openntf.domino.xots.AbstractXotsRunnable;
 import org.openntf.domino.xots.Tasklet;
+import org.openntf.domino.xsp.xots.AbstractXotsXspRunnable;
 
-@Tasklet(session = Tasklet.Session.NATIVE, context = Tasklet.Context.DEFAULT)
-public class SchedTaskNonXSP extends AbstractXotsRunnable {
+import com.paulwithers.Utils;
 
-	public SchedTaskNonXSP() {
+@Tasklet(session = Tasklet.Session.CLONE, context = Tasklet.Context.XSPSCOPED)
+public class SchedTask extends AbstractXotsXspRunnable {
+
+	public SchedTask() {
 
 	}
 
 	public void run() {
 		try {
-			Database currDb = Factory.getSession(SessionType.CURRENT).getDatabase("demos/BootstrapExtLibDemo.nsf");
+			Database currDb = Factory.getSession(SessionType.CURRENT).getCurrentDatabase();
 			View contacts = currDb.getView("AllContacts");
 			ViewNavigator nav = contacts.createViewNav();
 			ViewEntry ent = nav.getFirst();

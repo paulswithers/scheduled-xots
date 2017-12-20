@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" viewState="nostate">
+
+	<xp:this.beforeRenderResponse><![CDATA[#{javascript:com.paulwithers.DataManager.run(param);}]]></xp:this.beforeRenderResponse></xp:view>

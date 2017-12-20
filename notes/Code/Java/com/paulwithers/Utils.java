@@ -12,6 +12,7 @@ import org.openntf.domino.utils.Factory.SessionType;
 import org.openntf.domino.xots.Xots;
 
 import com.ibm.xsp.webapp.XspHttpServletResponse;
+import com.paulwithers.xots.SchedTask;
 
 public class Utils {
 

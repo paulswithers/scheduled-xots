@@ -4,7 +4,8 @@
 	<xp:this.resources>
 		<xp:dojoModule name="extlib.dijit.Loading"></xp:dojoModule>
 	</xp:this.resources>
-	<xc:OneUILayout id="cc4cconeuilayout"  navigationPath="/Admin/Home">
+	<xc:OneUILayout id="cc4cconeuilayout"  navigationPath="/Home"><xp:this.facets>
+	<xc:LeftCore xp:key="LeftColumn"></xc:LeftCore></xp:this.facets>
 		<xp:panel id="panel6">
 			<hr></hr>
 			<xp:label

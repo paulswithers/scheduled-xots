@@ -6,6 +6,7 @@ import org.openntf.xrest.xsp.exec.CustomRestHandler;
 
 import com.ibm.commons.util.io.json.JsonJavaObject;
 import com.ibm.commons.util.io.json.util.JsonWriter;
+import com.paulwithers.xots.SchedTaskNonXSP;
 
 public class CustomRest implements CustomRestHandler {
 
