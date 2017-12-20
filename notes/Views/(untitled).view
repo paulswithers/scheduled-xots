@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<view xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.10'
+ replicaid='802581F000436454' showinmenu='true' publicaccess='false' default='true'
+ noviewformat='true'>
+<noteinfo noteid='122' unid='9CE8DB2383CFFA9F80257BAB00519009' sequence='3'>
+<created><datetime dst='true'>20130717T155052,89+01</datetime></created>
+<modified><datetime>20171208T133649,94+00</datetime></modified>
+<revised><datetime>20171208T133622,00+00</datetime></revised>
+<lastaccessed><datetime>20171208T133649,93+00</datetime></lastaccessed>
+<addedtofile><datetime>20171208T121606,02+00</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Brian Gleeson/OU=Ireland/O=IBM</name><name>CN=admin/O=Intec-PW</name><name
+>CN=Paul Withers/O=Intec</name></updatedby>
+<wassignedby><name>CN=Paul Withers/O=Intec</name></wassignedby><code event='selection'><formula
+>SELECT @All</formula></code>
+<item name='$FormulaClass'><text>1</text></item></view>
+

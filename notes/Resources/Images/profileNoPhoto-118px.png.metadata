@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><imageresource designerversion="8.5.3" maintenanceversion="1.10" name="profileNoPhoto-118px.png" publicaccess="false" replicaid="802581F000436454" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="29e" sequence="8" unid="A9016303CE47B74680257BAB005507AC">
+<created><datetime dst="true">20130717T162845,24+01</datetime></created>
+<modified><datetime>20171208T133650,78+00</datetime></modified>
+<revised><datetime>20171208T133622,21+00</datetime></revised>
+<lastaccessed><datetime>20171208T133650,77+00</datetime></lastaccessed>
+<addedtofile><datetime>20171208T121607,92+00</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Brian Gleeson/OU=Ireland/O=IBM</name><name>CN=admin/O=Intec-PW</name><name>CN=Paul Withers/O=Intec</name></updatedby>
+<wassignedby><name>CN=Paul Withers/O=Intec</name></wassignedby>
+<item name="$FileModDT" sign="true"><datetime dst="true">20110516T085604,59-04</datetime></item>
+</imageresource>

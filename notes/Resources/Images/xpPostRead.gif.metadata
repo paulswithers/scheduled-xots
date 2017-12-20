@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><imageresource designerversion="8.5.3" fromtemplate="StdR85Discussion" language="en" maintenanceversion="1.10" name="xpPostRead.gif" noquery="true" publicaccess="false" replicaid="802581F000436454" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="29a" sequence="8" unid="DE4EB510057C929380257BAB005507A4">
+<created><datetime dst="true">20130717T162845,16+01</datetime></created>
+<modified><datetime>20171208T133651,02+00</datetime></modified>
+<revised><datetime>20171208T133622,22+00</datetime></revised>
+<lastaccessed><datetime>20171208T133651,01+00</datetime></lastaccessed>
+<addedtofile><datetime>20171208T121607,90+00</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Brian Gleeson/OU=Ireland/O=IBM</name><name>CN=admin/O=Intec-PW</name><name>CN=Paul Withers/O=Intec</name></updatedby>
+<wassignedby><name>CN=Paul Withers/O=Intec</name></wassignedby>
+<item name="$FileModDT" sign="true"><datetime dst="true">20080731T211812,00+01</datetime></item>
+</imageresource>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.10" replicaid="802581F000436454" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="44e" sequence="21" unid="8794425FD3E6F025802581F0004637C4">
+<created><datetime>20171208T124657,96+00</datetime></created>
+<modified><datetime>20171212T124635,83+00</datetime></modified>
+<revised><datetime>20171212T124635,82+00</datetime></revised>
+<lastaccessed><datetime>20171212T124635,82+00</datetime></lastaccessed>
+<addedtofile><datetime>20171208T124657,96+00</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Paul Withers/O=Intec</name></updatedby>
+<wassignedby><name>CN=Paul Withers/O=Intec</name></wassignedby>
+<item name="$Flags"><text>34567Cg~[</text></item>
+<item name="$TITLE"><text>com/paulwithers/SchedTask.java</text></item>
+
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>com/paulwithers/SchedTask.java</text></item>
+
+</note>

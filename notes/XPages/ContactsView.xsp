@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xc:OneUILayout navigationPath="/ContactsView">
+		<xp:this.facets>
+			<xp:panel xp:key="LeftColumn" id="panel4">
+				<xc:LeftCore id="cc4ccLeftCore"></xc:LeftCore>
+			</xp:panel>
+		</xp:this.facets>
+
+		<xe:dataView id="dataView1" showCheckbox="true">
+			<xp:this.facets>
+				<xp:div xp:key="pagerTopLeft">
+					<xp:button id="button1" value="Archive Selected">
+					<xp:eventHandler event="onclick" submit="true"
+						refreshMode="complete">
+						<xp:this.action><![CDATA[#{javascript:com.paulwithers.Utils.archiveSelected(getComponent("dataView1").getSelectedIds());}]]></xp:this.action>
+					</xp:eventHandler></xp:button>
+				</xp:div>
+				<xp:pager layout="Previous Group Next" partialRefresh="true" id="pager1"
+					xp:key="pagerTopRight">
+				</xp:pager>
+				<xp:pager layout="Previous Group Next" partialRefresh="true" id="pager2"
+					xp:key="pagerBottomRight">
+				</xp:pager>
+			</xp:this.facets>
+			<xe:this.data>
+				<xp:dominoView var="view1" viewName="AllContacts"></xp:dominoView>
+			</xe:this.data>
+			<xe:this.summaryColumn>
+				<xe:viewSummaryColumn columnName="$10"></xe:viewSummaryColumn>
+			</xe:this.summaryColumn>
+			<xe:this.extraColumns>
+				<xe:viewExtraColumn columnName="State"></xe:viewExtraColumn>
+				<xe:viewExtraColumn columnName="City"></xe:viewExtraColumn>
+			</xe:this.extraColumns>
+		</xe:dataView>
+	</xc:OneUILayout>
+</xp:view>

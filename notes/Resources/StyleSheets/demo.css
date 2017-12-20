@@ -1,0 +1,10 @@
+.dijitDialogUnderlayWrapper {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 998;
+    display: none;
+    background: none repeat scroll 0% 0% black !important;
+    opacity:0.5;
+    filter:alpha(opacity=50);
+}
