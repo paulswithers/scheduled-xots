@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.paulwithers.scheduledXots.feature_1.0.0.qualifier.jar" id="com.paulwithers.scheduledXots.feature" version="1.0.0.qualifier">
+      <category name="OpenNTF Domino API"/>
+   </feature>
+   <category-def name="OpenNTF Domino API" label="OpenNTF Domino API"/>
+</site>
