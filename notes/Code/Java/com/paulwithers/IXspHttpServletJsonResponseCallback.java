@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.ibm.commons.util.io.json.JsonJavaObject;
 import com.ibm.xsp.webapp.XspHttpServletResponse;
 
 /**
@@ -26,10 +27,10 @@ import com.ibm.xsp.webapp.XspHttpServletResponse;
  * @author Paul Withers
  * 
  */
-public interface IXspHttpServletResponseCallback {
+public interface IXspHttpServletJsonResponseCallback {
 
 	/**
-	 * {@linkplain Utils#initialiseAndProcessResponse(IXspHttpServletResponseCallback)} will extract the
+	 * {@linkplain Utils#initialiseAndProcessResponse(IXspHttpServletJsonResponseCallback)} will extract the
 	 * HttpServletRequest and XspHttpServletResponse, call this process() method, then terminate the response.
 	 * 
 	 * By using the callback approach custom code can be generated without needing to remember to code the boilerplate
@@ -40,7 +41,10 @@ public interface IXspHttpServletResponseCallback {
 	 * @param response
 	 *            XspHttpServletResponse that will be posted back to the browser, from which the getDelegate() method
 	 *            gives access to the HttpServletResponse, if needed
+	 * @param jsonObj
+	 *            to sore JSON
 	 */
-	public void process(HttpServletRequest request, XspHttpServletResponse response) throws IOException;
+	public void process(HttpServletRequest request, XspHttpServletResponse response, JsonJavaObject jsonObj)
+			throws IOException;
 
 }
