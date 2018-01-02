@@ -1,17 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.10" replicaid="802581F000436454" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="44a" sequence="24" unid="D2226A1E006A6559802581F00045E345">
-<created><datetime>20171208T124321,65+00</datetime></created>
-<modified><datetime>20171219T130711,47+00</datetime></modified>
-<revised><datetime>20171219T130711,46+00</datetime></revised>
-<lastaccessed><datetime>20171219T130711,46+00</datetime></lastaccessed>
-<addedtofile><datetime>20171208T124321,65+00</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Paul Withers/O=Intec</name></updatedby>
-<item name="$Flags"><text>gC~4K</text></item>
-
-
-
-
-<item name="$FileNames" sign="true"><text>SchedTasks.xsp</text></item>
-<item name="$TITLE" sign="true"><text>SchedArchive.xsp</text></item>
-<item name="$DesignerVersion" sign="true"><text>8.5.3</text></item>
+<?xml version="1.0" encoding="UTF-8"?>
+<note xmlns="http://www.lotus.com/dxl" class="form">
+  <item name="$Flags">
+    <text>gC~4K</text>
+  </item>
+  <item name="$FileNames" sign="true">
+    <text>SchedTasks.xsp</text>
+  </item>
+  <item name="$TITLE" sign="true">
+    <text>SchedArchive.xsp</text>
+  </item>
 </note>
