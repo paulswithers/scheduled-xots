@@ -1,7 +1,7 @@
 package com.paulwithers.xots;
 
 /*
- 	Copyright 2017 Paul Withers Licensed under the Apache License, Version 2.0
+ 	Copyright 2018 Paul Withers Licensed under the Apache License, Version 2.0
 	(the "License"); you may not use this file except in compliance with the
 	License. You may obtain a copy of the License at
 
@@ -34,7 +34,9 @@ public class SchedTaskNonXSP extends AbstractXotsRunnable {
 
 	public void run() {
 		try {
-			Database currDb = Factory.getSession(SessionType.CURRENT).getDatabase("demos/BootstrapExtLibDemo.nsf");
+			// Iterate 100 entries from the AllContacts view and archive them
+			// Native session can't use getCurrentDatabase(), fr the same reason as SessionAsSigner
+			Database currDb = Factory.getSession(SessionType.CURRENT).getDatabase(Utils.CURRENT_DB_PATH);
 			View contacts = currDb.getView("AllContacts");
 			ViewNavigator nav = contacts.createViewNav();
 			ViewEntry ent = nav.getFirst();

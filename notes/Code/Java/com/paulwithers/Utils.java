@@ -1,7 +1,7 @@
 package com.paulwithers;
 
 /*
- 	Copyright 2017 Paul Withers Licensed under the Apache License, Version 2.0
+ 	Copyright 2018 Paul Withers Licensed under the Apache License, Version 2.0
 	(the "License"); you may not use this file except in compliance with the
 	License. You may obtain a copy of the License at
 
@@ -41,6 +41,9 @@ import com.paulwithers.xots.SchedTask;
  */
 public class Utils {
 
+	public static String CURRENT_DB_PATH = "openntf-demo/scheduledXotsDemo.nsf";
+	public static String ARCHIVE_DB_PATH = "openntf-demo/scheduledXotsDemoArchive.nsf";
+
 	/**
 	 * This is triggered from the DataView
 	 * 
@@ -67,13 +70,13 @@ public class Utils {
 	 * Shared method
 	 * 
 	 * @param doc
-	 *            Docuemnt to be archived
+	 *            Document to be archived
 	 * @return success or failure
 	 */
 	public static boolean archiveDoc(Document doc) {
 		try {
 			System.out.println("archiving doc " + doc.getUniversalID());
-			Database archDb = Factory.getSession(SessionType.CURRENT).getCurrentDatabase();
+			Database archDb = Factory.getSession(SessionType.CURRENT).getDatabase(ARCHIVE_DB_PATH);
 			Document archDoc = archDb.createDocument();
 			doc.copyAllItems(archDoc, true);
 			System.out.println("archived doc " + doc.getUniversalID());

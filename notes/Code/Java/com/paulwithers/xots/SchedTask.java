@@ -1,7 +1,7 @@
 package com.paulwithers.xots;
 
 /*
- 	Copyright 2017 Paul Withers Licensed under the Apache License, Version 2.0
+ 	Copyright 2018 Paul Withers Licensed under the Apache License, Version 2.0
 	(the "License"); you may not use this file except in compliance with the
 	License. You may obtain a copy of the License at
 
@@ -32,8 +32,12 @@ public class SchedTask extends AbstractXotsXspRunnable {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run() {
 		try {
+			// Iterate 100 entries from the AllContacts view and archive them
 			Database currDb = Factory.getSession(SessionType.CURRENT).getCurrentDatabase();
 			View contacts = currDb.getView("AllContacts");
 			ViewNavigator nav = contacts.createViewNav();

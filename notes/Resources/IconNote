@@ -1,17 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<note default='true' class='icon' xmlns='http://www.lotus.com/dxl' version='9.0'
- maintenanceversion='1.10' replicaid='802581F000436454'>
-<noteinfo noteid='126' unid='4B5047D2C65ACB1380257BAB0051900A' sequence='1'>
-<created><datetime dst='true'>20130717T155052,90+01</datetime></created>
-<modified><datetime>20171219T123723,18+00</datetime></modified>
-<revised><datetime>20171219T123723,17+00</datetime></revised>
-<lastaccessed><datetime>20171219T123723,17+00</datetime></lastaccessed>
-<addedtofile><datetime>20171208T121606,04+00</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Brian Gleeson/OU=Ireland/O=IBM</name><name>CN=Paul Withers/O=Intec</name><name
->CN=admin/O=Intec-PW</name><name>CN=Paul Withers/O=Intec</name></updatedby>
-<wassignedby><name>CN=Paul Withers/O=Intec</name></wassignedby>
-<item name='IconBitmap' summary='true'>
-<rawitemdata type='6'>
+<?xml version="1.0" encoding="UTF-8"?>
+<note xmlns="http://www.lotus.com/dxl" default="true" class="icon">
+  <item name="IconBitmap" summary="true">
+    <rawitemdata type="6">
 AiAgAQAA///////wD///gAH//gAAf/wAAD/4AAAf8AAAD+AAAAfgAAAHwAAAA8AAAAPAAAADgAAA
 AYAAAAGAAAABgAAAAYAAAAGAAAABgAAAAYAAAAHAAAADwAAAA8AAAAPgAAAH4AAAB/AAAA/4AAAf
 /AAAP/4AAH//gAH///AP//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAiIiIiAAAAAAAAAAAAAAI
@@ -24,16 +14,37 @@ ZmbyL2byL2byL2ZmbAAAj2ZmIiJmIiJmIiJmZvgAAIxmZiIiZiIiZiIiZmbIAAAI9mbyL2byL2by
 L2ZvgAAACMZmZmZmZmZmZmZmbIAAAACMZmZmZmZmZmZmZsgAAAAACMZmZmZmZmZmZmyAAAAAAACM
 9mZmZmZmZm/IAAAAAAAACIz2ZmZmZm/IgAAAAAAAAAAIiMZmZmyIgAAAAAAAAAAAAACIiIiIAAAA
 AAAAUEECICABAAD/////+A4DgA==
-</rawitemdata></item>
-<item name='$DefaultClientXPage'><text>Core_Home.xsp</text></item>
-<item name='$DBTheme'><text>oneuiv3.0.2</text></item>
-<item name='$Flags'><text>J!7</text></item>
-<item name='$LaunchXPageRunOnServer'><text>0</text></item>
-<item name='$FlagsNoRefresh'><text>rv</text></item>
-<item name='$AllowRESTDbAPI'><number>2</number></item>
-<item name='$LargeSummary'><text>0</text></item>
-<item name='$TITLE'><text>B ExtLib
-#1DemoSched</text></item>
-<item name='$Daos'><text>0</text></item>
-<item name='$DefaultXPage'><text>ContactsView.xsp</text></item></note>
-
+</rawitemdata>
+  </item>
+  <item name="$DefaultClientXPage">
+    <text>Core_Home.xsp</text>
+  </item>
+  <item name="$DBTheme">
+    <text>oneuiv3.0.2</text>
+  </item>
+  <item name="$Flags">
+    <text>J!7</text>
+  </item>
+  <item name="$LaunchXPageRunOnServer">
+    <text>0</text>
+  </item>
+  <item name="$FlagsNoRefresh">
+    <text>rv</text>
+  </item>
+  <item name="$AllowRESTDbAPI">
+    <number>2</number>
+  </item>
+  <item name="$LargeSummary">
+    <text>0</text>
+  </item>
+  <item name="$Daos">
+    <text>0</text>
+  </item>
+  <item name="$DefaultXPage">
+    <text>ContactsView.xsp</text>
+  </item>
+  <item name="$TITLE">
+    <text>Sched Xots
+#1DemoSched</text>
+  </item>
+</note>
