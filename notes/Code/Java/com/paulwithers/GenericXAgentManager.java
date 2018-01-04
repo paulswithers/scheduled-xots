@@ -14,7 +14,6 @@ package com.paulwithers;
 */
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,17 +61,16 @@ public class GenericXAgentManager {
 				 */
 				public void process(HttpServletRequest request, XspHttpServletResponse response, JsonJavaObject jsonObj)
 						throws IOException {
-					Map params = request.getParameterMap(); // query string parameters
 
 					// A. Has the user requested that the process runs asynchronously?
 					boolean async = false;
-					if (params.containsKey("doAsync")) {
+					if (null != request.getParameter("doAsync")) {
 						async = true;
 						response.setStatus(HttpServletResponse.SC_ACCEPTED); // Tell the user it's queued, not processed
 					}
 
 					// B. Has the user included the "process" that should be run
-					if (!params.containsKey("process")) {
+					if (null == request.getParameter("process")) {
 						// Invalid request!!
 						response.sendError(HttpServletResponse.SC_BAD_REQUEST,
 								"This endpoint expects a process type to be passed");
@@ -81,12 +79,12 @@ public class GenericXAgentManager {
 						// We're good to go
 						try {
 							// pre-Java 8 we need an if statement. switch statements using strings are Java 7+, so FP10+
-							if ("loadData".equals(params.get("process"))) {
+							if ("loadData".equals(request.getParameter("process"))) {
 								// 1. LOAD ADDITIONAL USERS WITHOUT CLEARING THIS DATABASE DOWN
 								// Was a number of users passed? We'll default to 200
 								int userCount = 200;
-								if (params.containsKey("userCount")) {
-									userCount = Integer.parseInt((String) params.get("userCount"));
+								if (null != request.getParameter("userCount")) {
+									userCount = Integer.parseInt(request.getParameter("userCount"));
 								}
 								if (async) {
 									// Async request, run in background and confirm in JSON
@@ -102,12 +100,12 @@ public class GenericXAgentManager {
 									d.run();
 									jsonObj.put("message", userCount + " users created");
 								}
-							} else if ("reloadData".equals(params.get("process"))) {
+							} else if ("reloadData".equals(request.getParameter("process"))) {
 								// 2. DELETE AND RELOAD ADDITIONAL USERS
 								// Same as above, just including deletion. Was a number of users passed? We'll default to 200
 								int userCount = 200;
-								if (params.containsKey("userCount")) {
-									userCount = Integer.parseInt((String) params.get("userCount"));
+								if (null != request.getParameter("userCount")) {
+									userCount = Integer.parseInt(request.getParameter("userCount"));
 								}
 								if (async) {
 									// Async request, run in background and confirm in JSON
@@ -125,7 +123,7 @@ public class GenericXAgentManager {
 									d.run();
 									jsonObj.put("message", "data cleared and " + userCount + " users created");
 								}
-							} else if ("deleteData".equals(params.get("process"))) {
+							} else if ("deleteData".equals(request.getParameter("process"))) {
 								// 3. JUST CLEAR DOWN THE DATABASE. IF YOU WANT TO CLEAR DOWN THE ARCHIVE, GUESS WHAT - CALL THE REST SERVICE THERE!
 								if (async) {
 									// Async request, run in background and confirm in JSON
@@ -142,6 +140,7 @@ public class GenericXAgentManager {
 								response.sendError(HttpServletResponse.SC_BAD_REQUEST,
 										"Invalid process parameter passed");
 							}
+
 						} catch (Throwable t) {
 							// Whoops! We've hit an unexpected error. Return an error 500
 							t.printStackTrace();

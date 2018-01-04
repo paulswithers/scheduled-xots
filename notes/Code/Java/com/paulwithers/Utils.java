@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.openntf.domino.Database;
 import org.openntf.domino.Document;
@@ -28,7 +29,6 @@ import org.openntf.domino.xots.Xots;
 
 import com.ibm.commons.util.io.json.JsonException;
 import com.ibm.commons.util.io.json.JsonJavaObject;
-import com.ibm.commons.util.io.json.util.JsonWriter;
 import com.ibm.domino.services.HttpServiceConstants;
 import com.ibm.xsp.webapp.XspHttpServletResponse;
 import com.paulwithers.xots.SchedTask;
@@ -134,9 +134,11 @@ public class Utils {
 		response.setHeader("Cache-Control", "no-cache");
 		JsonJavaObject result = new JsonJavaObject();
 		callback.process((HttpServletRequest) ext.getRequest(), response, result);
-		JsonWriter jsw = new JsonWriter(response.getWriter(), true);
-		jsw.outObject(result);
-		jsw.close();
+		if (!response.isStatusSet()) {
+			response.setStatus(HttpServletResponse.SC_OK);
+		}
+		PrintWriter writer = response.getWriter();
+		writer.write(result.toString());
 		//  Terminate the request processing lifecycle.
 		FacesContext.getCurrentInstance().responseComplete();
 	}
