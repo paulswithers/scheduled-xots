@@ -1,5 +1,5 @@
 /*
- * Copyright 2017
+ * Copyright 2018
  *
  * @author Paul Withers (pwithers@intec.co.uk)
  *
@@ -65,7 +65,7 @@ public class SetupResource {
 	/**
 	 * Basic endpoint, using path of class with no additional URL path
 	 *
-	 * @return Json response with "Hello World " + current user + current database path; or error
+	 * @return Json response with details of processing or error
 	 */
 	@SuppressWarnings("restriction")
 	@GET
@@ -73,25 +73,23 @@ public class SetupResource {
 		final JsonJavaObject jjo = new JsonJavaObject();
 		try {
 			final Session session = Factory.getSession(SessionType.NATIVE);
-			Database db = session.getDatabase("openntf-demo/scheduledXotsDemo.nsf");
+			// Remove existing NSFs if found
+			Database db = session.getDatabase(Activator.LIVE_DATABASE_PATH);
 			if (null != db) {
-				// throw new WebApplicationException(
-				// new Throwable("Database already found at location openntf-demo/scheduledXotsDemo.nsf"),
-				// Status.INTERNAL_SERVER_ERROR);
 				db.remove();
-				Database tmpArch = session.getDatabase("openntf-demo/scheduledXotsDemoArchive.nsf");
+				Database tmpArch = session.getDatabase(Activator.ARCHIVE_DATABASE_PATH);
 				if (null != tmpArch) {
 					tmpArch.remove();
 				}
 			}
 
+			// Create folder and NSF (backend)
 			String dir = session.getEnvironmentString("directory", true);
-			String s = File.separator;
-			File folder = new File(dir + s + "openntf-demo");
+			File folder = new File(dir + Activator.SEPARATOR + Activator.FOLDER);
 			if (!folder.exists()) {
 				folder.mkdir();
 			}
-			File dbFile = new File(dir + s + "openntf-demo" + s + "scheduledXotsDemo.nsf");
+			File dbFile = new File(dir + Activator.SEPARATOR + Activator.LIVE_DATABASE_PATH);
 			FileOutputStream fs = new FileOutputStream(dbFile);
 			InputStream is = SetupResource.class.getResourceAsStream("ScheduledXotsDemo.nsf");
 			StreamUtil.copyStream(is, fs);
@@ -100,13 +98,16 @@ public class SetupResource {
 			StreamUtil.close(fs);
 
 			// Create the database
-			db = session.getDatabase("openntf-demo/ScheduledXotsDemo.nsf");
+			db = session.getDatabase(Activator.LIVE_DATABASE_PATH);
 			if (null == db) {
 				throw new WebApplicationException(
-						new Throwable("Database could not be copied to location openntf-demo/ScheduledXotsDemo.nsf"),
+						new Throwable("Database could not be copied to location " + Activator.LIVE_DATABASE_PATH),
 						Status.INTERNAL_SERVER_ERROR);
 			}
 
+			// Sign the design notes.
+			// database.sign only works on a workstation. AdministrationProcess.signWithServerID() throws not authorized
+			// error from here
 			NoteCollection nc = db.createNoteCollection(true);
 			nc.buildCollection();
 			for (int nid : nc.getNoteIDs()) {
@@ -115,6 +116,8 @@ public class SetupResource {
 				doc.save();
 			}
 
+			// Set ACL - temporarily set Anonymous access, so we can create data in the database without needing
+			// username and password in HTTP REST service request
 			ACL acl = db.getACL();
 			String serverName = session.getEffectiveUserName();
 			ACLEntry server = acl.createACLEntry(serverName, Level.MANAGER);
@@ -126,30 +129,30 @@ public class SetupResource {
 
 			// Create the archive and sign (signing is not instant, not sure it's synchronous, so may not have completed
 			// on main database before creating the archive)
-			Database archiveDb = db.createCopy(db.getServer(), "openntf-demo/scheduledXotsDemoArchive.nsf");
+			Database archiveDb = db.createCopy(db.getServer(), Activator.ARCHIVE_DATABASE_PATH);
 			if (null == archiveDb) {
 				throw new WebApplicationException(
 						new Throwable(
-								"Database could not be copied to location openntf-demo/ScheduledXotsDemoArchive.nsf"),
+								"Database could not be copied to location " + Activator.ARCHIVE_DATABASE_PATH),
 						Status.INTERNAL_SERVER_ERROR);
 			}
 			jjo.put("message", "created databases");
 
+			// REST service call to XAgent in live, and set Anonymous to No Access
 			String serverUrl = request.getScheme() + "://" + request.getServerName();
-
 			URL url = new URL(
-					serverUrl + "/openntf-demo/scheduledXotsDemo.nsf/genericXAgent.xsp?process=loadData&userCount=400");
+					serverUrl + "/" + Activator.LIVE_DATABASE_PATH
+							+ "/genericXAgent.xsp?process=loadData&userCount=400");
 			processUrl(jjo, url, true);
 			acl = db.getACL();
 			acl.getEntry("Anonymous").setLevel(Level.NOACCESS);
 			acl.save();
-			url = new URL(serverUrl
-					+ "/openntf-demo/scheduledXotsDemoArchive.nsf/genericXAgent.xsp?process=loadData&userCount=400");
-			processUrl(jjo, url, false);
+
 			acl = archiveDb.getACL();
 			acl.getEntry("Anonymous").setLevel(Level.NOACCESS);
 			acl.save();
 
+			// Output response
 			final ResponseBuilder builder = Response.ok(jjo.toString(), MediaType.APPLICATION_JSON);
 			return builder.build();
 		} catch (final Exception e) {

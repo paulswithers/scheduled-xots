@@ -70,7 +70,7 @@ Our recommendation is that IBM should focus on core features rather than buildin
 ## The Demo Project
 The demo project contains three parts:
 
-- an OSGi plugin that is a REST endpoint and can auto-deploy the databases. This is dependent on ODA 3.2.1 and the update site part needs importing into an NSF.
+- an OSGi plugin that includes a REST endpoint and can auto-deploy the databases. This is dependent on ODA 3.2.1 and the update site part needs importing into an NSF.
 - an ODP for the NSF that requires ODA 3.2.1 and Ext Lib. If not using the auto-deploy option, create new NSFs from the ODP to recommended filepaths are "openntfDemos/scheduleDemo.nsf" and openntfDemos/scheduleDemoArchive.nsf". If using a different filepath, locations will need amending in the json.
 - the node-red-flow folder contains json for a set of Node-RED tasks to interact with the REST services. Find/Replace the server name in the json, save and import into Node-RED.
 

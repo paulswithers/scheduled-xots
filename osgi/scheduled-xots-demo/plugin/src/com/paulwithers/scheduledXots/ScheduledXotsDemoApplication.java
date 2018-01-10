@@ -45,6 +45,7 @@ public class ScheduledXotsDemoApplication extends RestService {
 		System.out.println("Loading classes");
 		final Set<Class<?>> classes = new HashSet<Class<?>>();
 		classes.add(SetupResource.class);
+		classes.add(ChainReinitialiseResource.class);
 		return classes;
 	}
 

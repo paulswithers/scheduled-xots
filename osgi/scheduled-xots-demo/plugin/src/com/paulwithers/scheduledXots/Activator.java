@@ -18,6 +18,8 @@
  */
 package com.paulwithers.scheduledXots;
 
+import java.io.File;
+
 import javax.ws.rs.ext.RuntimeDelegate;
 
 import org.apache.wink.common.internal.runtime.RuntimeDelegateImpl;
@@ -32,6 +34,12 @@ import org.osgi.framework.BundleContext;
  *
  */
 public class Activator extends Plugin {
+	public static String FOLDER = "openntf-demo";
+	public static String SEPARATOR = File.separator;
+	private static String LIVE_DATABASE_FILENAME = "scheduledXotsDemo.nsf";
+	private static String ARCHIVE_DATABASE_FILENAME = "scheduledXotsDemoArchive.nsf";
+	public static String LIVE_DATABASE_PATH = FOLDER + SEPARATOR + LIVE_DATABASE_FILENAME;
+	public static String ARCHIVE_DATABASE_PATH = FOLDER + SEPARATOR + ARCHIVE_DATABASE_FILENAME;
 
 	private static BundleContext context;
 
