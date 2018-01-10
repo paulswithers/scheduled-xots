@@ -13,7 +13,7 @@ This will give you a http tunnel to the server, e.g. `http://1b81a6b9.ngrok.io`
 
 ### Node-Red
 Set up Node-RED. To create a new Node-RED instance use command:
-`docker run -it -p 1880:1880 -v C:/PaulTemp/node-red-data --name mynodered nodered/node-red-docker`
+`docker run -it -p 1880:1880 -v C:/PaulTemp/node-red-data:/data --name domino-node-red nodered/node-red-docker`
 This tells it which port to run on, where to store the data, and a name to run as.
 
 If a Node-RED instance with that name has already been setup, use `docker start mynodered`.
