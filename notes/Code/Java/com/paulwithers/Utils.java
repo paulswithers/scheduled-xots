@@ -13,24 +13,26 @@ package com.paulwithers;
 	
 */
 
-import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.openntf.domino.Database;
 import org.openntf.domino.Document;
+import org.openntf.domino.View;
+import org.openntf.domino.ViewEntry;
+import org.openntf.domino.ViewNavigator;
 import org.openntf.domino.utils.Factory;
 import org.openntf.domino.utils.Factory.SessionType;
 import org.openntf.domino.xots.Xots;
 
-import com.ibm.commons.util.io.json.JsonException;
-import com.ibm.commons.util.io.json.JsonJavaObject;
-import com.ibm.domino.services.HttpServiceConstants;
 import com.ibm.xsp.webapp.XspHttpServletResponse;
+import com.paulwithers.forOda.GenericHttpRequestUtils;
+import com.paulwithers.forOda.IXotsXspChainingRunnableCallback;
+import com.paulwithers.forOda.IXotsXspRunnableCallback;
 import com.paulwithers.xots.SchedTask;
 
 /**
@@ -113,58 +115,71 @@ public class Utils {
 	}
 
 	/**
-	 * A generic method that performs boilerplate code to extract XspHttpServletRequest and HttpServletResponse;
-	 * triggers a callback method passed in giving it access to the request, response and a JsonJavaObject; then closes
-	 * everything down successfully
-	 * 
-	 * @param callback
-	 *            anonymous inner class callback that implements IXspHttpServletResponse, so has a process() method that
-	 *            can be called from here
-	 * @throws IOException
-	 *             that may be caused by manipulating the response
-	 * @throws JsonException
-	 *             caused by malformed JSON, shouldn't happen
+	 * XAgent called from beforeRenderResponse of SchedReallyEasyJavaArchive XPage. Easiest to write of all.
 	 */
-	public static void initialiseAndProcessResponseAsJson(IXspHttpServletJsonResponseCallback callback)
-			throws IOException, JsonException {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext ext = ctx.getExternalContext();
-		XspHttpServletResponse response = (XspHttpServletResponse) ext.getResponse();
-		response.setContentType(HttpServiceConstants.CONTENTTYPE_APPLICATION_JSON);
-		response.setHeader("Cache-Control", "no-cache");
-		JsonJavaObject result = new JsonJavaObject();
-		callback.process((HttpServletRequest) ext.getRequest(), response, result);
-		if (!response.isStatusSet()) {
-			response.setStatus(HttpServletResponse.SC_OK);
-		}
-		PrintWriter writer = response.getWriter();
-		writer.write(result.toString());
-		//  Terminate the request processing lifecycle.
-		FacesContext.getCurrentInstance().responseComplete();
+	public static void processBackgroundCallback() {
+		GenericHttpRequestUtils.initialiseAndProcessBackgroundTask(new IXotsXspRunnableCallback() {
+
+			@Override
+			public void process(Map<String, String> params) {
+				try {
+					// Iterate 100 entries from the AllContacts view and archive them
+					Database currDb = Factory.getSession(SessionType.CURRENT).getCurrentDatabase();
+					View contacts = currDb.getView("AllContacts");
+					ViewNavigator nav = contacts.createViewNav();
+					ViewEntry ent = nav.getFirst();
+					Integer archCount = Integer.parseInt(params.get("userCount"));
+					for (int x = 0; x < archCount; x++) {
+						if (null == ent) {
+							break;
+						}
+						ViewEntry next = nav.getNext();
+						Document doc = ent.getDocument();
+						if (Utils.archiveDoc(doc)) {
+							doc.remove(true);
+						}
+						ent = next;
+					}
+				} catch (Throwable t) {
+					t.printStackTrace();
+				}
+			}
+
+		});
 	}
 
 	/**
-	 * A more basic generic method that performs boilerplate code to extract XspHttpServletRequest and
-	 * HttpServletResponse; triggers a callback method passed in, passing it the request and response; then terminates
-	 * the response
-	 * 
-	 * It's down to you to handle printing something to the response
-	 * 
-	 * @param callback
-	 *            anonymous inner class callback that implements IXspHttpServletResponse, so has a process() method that
-	 *            can be called from here
-	 * @throws IOException
-	 *             that may be caused by manipulating the response
+	 * XAgent called from beforeRenderResponse of SchedReallyEasyJavaArchive XPage. Easiest to write of all.
 	 */
-	public static void initialiseAndProcessResponse(IXspHttpServletResponseCallback callback) throws IOException {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext ext = ctx.getExternalContext();
-		XspHttpServletResponse response = (XspHttpServletResponse) ext.getResponse();
-		response.setContentType(HttpServiceConstants.CONTENTTYPE_APPLICATION_JSON);
-		response.setHeader("Cache-Control", "no-cache");
-		callback.process((HttpServletRequest) ext.getRequest(), response);
-		//  Terminate the request processing lifecycle.
-		FacesContext.getCurrentInstance().responseComplete();
+	public static void processBackgroundChainingCallback() {
+		GenericHttpRequestUtils.initialiseProcessBackgroundTaskAndChain(new IXotsXspChainingRunnableCallback() {
+
+			@Override
+			public void process(Map<String, String> params, HttpURLConnection conn) {
+				try {
+					// Iterate 100 entries from the AllContacts view and archive them
+					Database currDb = Factory.getSession(SessionType.CURRENT).getCurrentDatabase();
+					View contacts = currDb.getView("AllContacts");
+					ViewNavigator nav = contacts.createViewNav();
+					ViewEntry ent = nav.getFirst();
+					Integer archCount = Integer.parseInt(params.get("userCount"));
+					for (int x = 0; x < archCount; x++) {
+						if (null == ent) {
+							break;
+						}
+						ViewEntry next = nav.getNext();
+						Document doc = ent.getDocument();
+						if (Utils.archiveDoc(doc)) {
+							doc.remove(true);
+						}
+						ent = next;
+					}
+				} catch (Throwable t) {
+					t.printStackTrace();
+				}
+			}
+
+		});
 	}
 
 }

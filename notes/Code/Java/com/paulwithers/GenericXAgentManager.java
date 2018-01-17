@@ -22,6 +22,8 @@ import org.openntf.domino.xots.Xots;
 
 import com.ibm.commons.util.io.json.JsonJavaObject;
 import com.ibm.xsp.webapp.XspHttpServletResponse;
+import com.paulwithers.forOda.GenericHttpRequestUtils;
+import com.paulwithers.forOda.IXspHttpServletJsonResponseCallback;
 import com.paulwithers.xots.DataInitializerBackground;
 import com.paulwithers.xots.DataInitializerBackground.InitializerType;
 
@@ -42,19 +44,19 @@ public class GenericXAgentManager {
 	public static void doGet() {
 		try {
 			/*
-			 * One method call to Utils.initialiseAndProcessResponse() does all the boilerplating for extracting the request, response and JsonJavaObject
+			 * One method call to Utils.initialiseAndProcessResponseAsJson() does all the boilerplating for extracting the request, response and JsonJavaObject
 			 * and properly terminating the response. JsonJavaObject is basically the same as a Java Map. All gotchas are handled for you!
 			 *
-			 * The bit that could be new to most is that Utils.initialiseAndProcessResponse() takes an anonymous inner class as its method. This is just
-			 * a way to pass in a process() method that can interact with the request and response set up by Utils.initialiseAndProcessResponse()
+			 * The bit that could be new to most is that Utils.initialiseAndProcessResponseAsJson() takes an anonymous inner class as its method. This is just
+			 * a way to pass in a process() method that can interact with the request and response set up by Utils.initialiseAndProcessResponseAsJson()
 			 *
 			 * With Java 8 it becomes more readable with lambdas:
 			 *
-			 * Utils.initialiseAndProcessResponse((request, response) -> {
+			 * Utils.initialiseAndProcessResponseAsJson((request, response, jsonObj) -> {
 			 * 	   // do stuff here
 			 * });
 			 */
-			Utils.initialiseAndProcessResponseAsJson(new IXspHttpServletJsonResponseCallback() {
+			GenericHttpRequestUtils.initialiseAndProcessResponseAsJson(new IXspHttpServletJsonResponseCallback() {
 
 				/* (non-Javadoc)
 				 * @see com.paulwithers.IXspHttpServletResponseCallback#process(javax.servlet.http.HttpServletRequest, com.ibm.xsp.webapp.XspHttpServletResponse)
@@ -153,5 +155,4 @@ public class GenericXAgentManager {
 			t.printStackTrace();
 		}
 	}
-
 }

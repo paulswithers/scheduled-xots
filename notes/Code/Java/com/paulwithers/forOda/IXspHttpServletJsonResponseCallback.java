@@ -1,4 +1,4 @@
-package com.paulwithers;
+package com.paulwithers.forOda;
 
 /*
  	Copyright 2018 Paul Withers Licensed under the Apache License, Version 2.0
@@ -30,7 +30,7 @@ import com.ibm.xsp.webapp.XspHttpServletResponse;
 public interface IXspHttpServletJsonResponseCallback {
 
 	/**
-	 * {@linkplain Utils#initialiseAndProcessResponse(IXspHttpServletJsonResponseCallback)} will extract the
+	 * {@linkplain GenericHttpRequestUtils#initialiseAndProcessResponse(IXspHttpServletJsonResponseCallback)} will extract the
 	 * HttpServletRequest and XspHttpServletResponse, call this process() method, then terminate the response.
 	 * 
 	 * By using the callback approach custom code can be generated without needing to remember to code the boilerplate
