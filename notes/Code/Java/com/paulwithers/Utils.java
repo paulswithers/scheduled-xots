@@ -10,11 +10,10 @@ package com.paulwithers;
 	on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
 	express or implied. See the License for the specific language governing
 	permissions and limitations under the License
-	
+
 */
 
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
@@ -31,15 +30,13 @@ import org.openntf.domino.xots.Xots;
 
 import com.ibm.xsp.webapp.XspHttpServletResponse;
 import com.paulwithers.forOda.GenericHttpRequestUtils;
-import com.paulwithers.forOda.IXotsXspChainingRunnableCallback;
-import com.paulwithers.forOda.IXotsXspRunnableCallback;
 import com.paulwithers.xots.SchedTask;
 
 /**
  * @author Paul Withers
- * 
+ *
  *         Utility class for standalone XPages / REST calls
- * 
+ *
  */
 public class Utils {
 
@@ -48,7 +45,7 @@ public class Utils {
 
 	/**
 	 * This is triggered from the DataView
-	 * 
+	 *
 	 * @param ids
 	 *            selected documents NoteIDs
 	 */
@@ -70,7 +67,7 @@ public class Utils {
 
 	/**
 	 * Shared method
-	 * 
+	 *
 	 * @param doc
 	 *            Document to be archived
 	 * @return success or failure
@@ -92,7 +89,7 @@ public class Utils {
 	/**
 	 * XAgent called from beforeRenderResponse of SchedArchive XPage. Most basic code, using just a PrintWriter and
 	 * writing JSON as a plain text string, returning basic 200 status code.
-	 * 
+	 *
 	 * This shows the most basic and should NEVER be used
 	 */
 	public static void processBackgroundTask() {
@@ -118,67 +115,58 @@ public class Utils {
 	 * XAgent called from beforeRenderResponse of SchedReallyEasyJavaArchive XPage. Easiest to write of all.
 	 */
 	public static void processBackgroundCallback() {
-		GenericHttpRequestUtils.initialiseAndProcessBackgroundTask(new IXotsXspRunnableCallback() {
-
-			@Override
-			public void process(Map<String, String> params) {
-				try {
-					// Iterate 100 entries from the AllContacts view and archive them
-					Database currDb = Factory.getSession(SessionType.CURRENT).getCurrentDatabase();
-					View contacts = currDb.getView("AllContacts");
-					ViewNavigator nav = contacts.createViewNav();
-					ViewEntry ent = nav.getFirst();
-					Integer archCount = Integer.parseInt(params.get("userCount"));
-					for (int x = 0; x < archCount; x++) {
-						if (null == ent) {
-							break;
-						}
-						ViewEntry next = nav.getNext();
-						Document doc = ent.getDocument();
-						if (Utils.archiveDoc(doc)) {
-							doc.remove(true);
-						}
-						ent = next;
+		GenericHttpRequestUtils.initialiseAndProcessBackgroundTask((Map<String, String> params) -> {
+			try {
+				// Iterate 100 entries from the AllContacts view and archive them
+				Database currDb = Factory.getSession(SessionType.CURRENT).getCurrentDatabase();
+				View contacts = currDb.getView("AllContacts");
+				ViewNavigator nav = contacts.createViewNav();
+				ViewEntry ent = nav.getFirst();
+				Integer archCount = Integer.parseInt(params.get("userCount"));
+				for (int x = 0; x < archCount; x++) {
+					if (null == ent) {
+						break;
 					}
-				} catch (Throwable t) {
-					t.printStackTrace();
+					ViewEntry next = nav.getNext();
+					Document doc = ent.getDocument();
+					if (Utils.archiveDoc(doc)) {
+						doc.remove(true);
+					}
+					ent = next;
 				}
+			} catch (Throwable t) {
+				t.printStackTrace();
 			}
 
 		});
 	}
 
 	/**
-	 * XAgent called from beforeRenderResponse of SchedReallyEasyJavaArchive XPage. Easiest to write of all.
+	 * XAgent called from beforeRenderResponse of SchedReallyEasyJavaChain XPage. Easiest to write of all.
 	 */
 	public static void processBackgroundChainingCallback() {
-		GenericHttpRequestUtils.initialiseProcessBackgroundTaskAndChain(new IXotsXspChainingRunnableCallback() {
-
-			@Override
-			public void process(Map<String, String> params, HttpURLConnection conn) {
-				try {
-					// Iterate 100 entries from the AllContacts view and archive them
-					Database currDb = Factory.getSession(SessionType.CURRENT).getCurrentDatabase();
-					View contacts = currDb.getView("AllContacts");
-					ViewNavigator nav = contacts.createViewNav();
-					ViewEntry ent = nav.getFirst();
-					Integer archCount = Integer.parseInt(params.get("userCount"));
-					for (int x = 0; x < archCount; x++) {
-						if (null == ent) {
-							break;
-						}
-						ViewEntry next = nav.getNext();
-						Document doc = ent.getDocument();
-						if (Utils.archiveDoc(doc)) {
-							doc.remove(true);
-						}
-						ent = next;
+		GenericHttpRequestUtils.initialiseProcessBackgroundTaskAndChain((params, conn) -> {
+			try {
+				// Iterate 100 entries from the AllContacts view and archive them
+				Database currDb = Factory.getSession(SessionType.CURRENT).getCurrentDatabase();
+				View contacts = currDb.getView("AllContacts");
+				ViewNavigator nav = contacts.createViewNav();
+				ViewEntry ent = nav.getFirst();
+				Integer archCount = Integer.parseInt(params.get("userCount"));
+				for (int x = 0; x < archCount; x++) {
+					if (null == ent) {
+						break;
 					}
-				} catch (Throwable t) {
-					t.printStackTrace();
+					ViewEntry next = nav.getNext();
+					Document doc = ent.getDocument();
+					if (Utils.archiveDoc(doc)) {
+						doc.remove(true);
+					}
+					ent = next;
 				}
+			} catch (Throwable t) {
+				t.printStackTrace();
 			}
-
 		});
 	}
 

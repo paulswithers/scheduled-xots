@@ -21,9 +21,9 @@ import com.ibm.xsp.webapp.XspHttpServletResponse;
 public class GenericHttpRequestUtils {
 
 	/**
-	 * XAgent called from beforeRenderResponse of SchedArchive XPage. Most basic code, using just a PrintWriter and
-	 * writing JSON as a plain text string, returning basic 200 status code.
-	 * 
+	 * XAgent called from beforeRenderResponse of SchedReallyEasyJavaChain XPage. Most basic code, using just a
+	 * PrintWriter and writing JSON as a plain text string, returning basic 200 status code.
+	 *
 	 * This shows the most basic and should NEVER be used
 	 */
 	public static void initialiseProcessBackgroundTaskAndChain(IXotsXspChainingRunnableCallback callback) {
@@ -55,9 +55,9 @@ public class GenericHttpRequestUtils {
 	}
 
 	/**
-	 * XAgent called from beforeRenderResponse of SchedArchive XPage. Most basic code, using just a PrintWriter and
-	 * writing JSON as a plain text string, returning basic 200 status code.
-	 * 
+	 * XAgent called from beforeRenderResponse of SchedReallyEasyJavaArchive XPage. Most basic code, using just a
+	 * PrintWriter and writing JSON as a plain text string, returning basic 200 status code.
+	 *
 	 * This shows the most basic and should NEVER be used
 	 */
 	public static void initialiseAndProcessBackgroundTask(IXotsXspRunnableCallback callback) {
@@ -92,9 +92,9 @@ public class GenericHttpRequestUtils {
 	 * A more basic generic method that performs boilerplate code to extract XspHttpServletRequest and
 	 * HttpServletResponse; triggers a callback method passed in, passing it the request and response; then terminates
 	 * the response
-	 * 
+	 *
 	 * It's down to you to handle printing something to the response
-	 * 
+	 *
 	 * @param callback
 	 *            anonymous inner class callback that implements IXspHttpServletResponse, so has a process() method that
 	 *            can be called from here
@@ -116,7 +116,7 @@ public class GenericHttpRequestUtils {
 	 * A generic method that performs boilerplate code to extract XspHttpServletRequest and HttpServletResponse;
 	 * triggers a callback method passed in giving it access to the request, response and a JsonJavaObject; then closes
 	 * everything down successfully
-	 * 
+	 *
 	 * @param callback
 	 *            anonymous inner class callback that implements IXspHttpServletResponse, so has a process() method that
 	 *            can be called from here
